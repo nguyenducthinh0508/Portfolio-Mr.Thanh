@@ -300,18 +300,18 @@ export default function App() {
             
             {/* LEFT COLUMN: Avatar Card */}
             <div className="flex justify-center lg:justify-start">
-              <div className="relative w-full max-w-[440px] aspect-[3/2] bg-white rounded-3xl overflow-hidden border border-gray-200/60 shadow-[0_8px_32px_rgba(0,0,0,0.06)] flex items-center justify-center p-3 group">
+              <div className="relative w-full max-w-[440px] aspect-[3/2] bg-white rounded-3xl overflow-hidden border border-cyan-500/40 shadow-[0_8px_32px_rgba(6,182,212,0.08),_0_0_15px_rgba(6,182,212,0.15)] flex items-center justify-center p-3 group hover:border-cyan-500 hover:shadow-[0_8px_32px_rgba(6,182,212,0.2),_0_0_25px_rgba(6,182,212,0.45)] transition-all duration-500">
                 {/* Soft grid background */}
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] bg-[size:16px_16px] opacity-25"></div>
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#06b6d4_1px,transparent_1px),linear-gradient(to_bottom,#06b6d4_1px,transparent_1px)] bg-[size:16px_16px] opacity-10"></div>
                 
                 {/* Abstract network waves/gradients */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-tr from-[#F26522]/10 to-indigo-500/10 rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-700"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-tr from-cyan-500/15 to-blue-500/10 rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-700"></div>
                 
                 {/* Fine-tuned matrix-like glowing overlay dot pattern */}
-                <div className="absolute inset-0 bg-[radial-gradient(#F26522_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_80%,transparent_100%)] opacity-[0.07] pointer-events-none"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(#06b6d4_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_80%,transparent_100%)] opacity-[0.12] pointer-events-none"></div>
 
                 {/* The Avatar Image (Full landscape frame) */}
-                <div className="relative z-10 w-full h-full rounded-2xl overflow-hidden border border-gray-100 shadow-[0_4px_16px_rgba(0,0,0,0.04)] bg-gray-50">
+                <div className="relative z-10 w-full h-full rounded-2xl overflow-hidden border border-cyan-500/20 shadow-[0_4px_16px_rgba(6,182,212,0.05)] bg-gray-50">
                   <img 
                     src={avatarSpeaking} 
                     alt="Nguyen Duc Thanh Avatar" 
