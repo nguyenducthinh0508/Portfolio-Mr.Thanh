@@ -251,7 +251,7 @@ export default function App() {
         {/* Hero Content Area */}
         <div className="w-full max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 relative z-20 flex flex-col justify-center items-center text-center flex-1 pb-8 sm:pb-12">
           <h1 className="text-gray-900 font-extrabold tracking-[-0.03em] leading-[1.05] text-[clamp(2.5rem,8vw,5.5rem)] select-text mb-4 sm:mb-6">
-            Mr.Thanh
+            Mr. Nguyen Duc Thanh
           </h1>
           <p className="text-gray-700 text-[clamp(1.1rem,3vw,1.6rem)] font-medium leading-[1.4] max-w-[850px] select-text">
             {isEnglish ? "Turning Traffic into Revenue. Optimizing conversions for Affiliate ecosystems across E-commerce & Mobile Apps." : "Biến Traffic thành Doanh thu. Tối ưu hóa chuyển đổi hệ sinh thái Affiliate mảng E-commerce & Mobile App."}
