@@ -103,7 +103,7 @@ export default function App() {
     <div className="relative w-full min-h-screen bg-[#EFEFEF] selection:bg-[#F26522] selection:text-white antialiased">
       
       {/* SECTION 1: HERO */}
-      <section className="relative w-full h-screen min-h-[650px] bg-[#EFEFEF] flex flex-col justify-between overflow-hidden">
+      <section className="relative w-full h-[60vh] min-h-[460px] bg-[#EFEFEF] flex flex-col justify-between overflow-hidden">
         
         {/* Animated Shader Overlay with WebGPU Support Check */}
         {hasWebGPU ? (
@@ -249,7 +249,7 @@ export default function App() {
         )}
 
         {/* Hero Content Area */}
-        <div className="w-full max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 relative z-20 flex flex-col justify-center items-center text-center flex-1 pb-24 sm:pb-28">
+        <div className="w-full max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 relative z-20 flex flex-col justify-center items-center text-center flex-1 pb-8 sm:pb-12">
           <h1 className="text-gray-900 font-extrabold tracking-[-0.03em] leading-[1.05] text-[clamp(2.5rem,8vw,5.5rem)] select-text mb-4 sm:mb-6">
             Mr.Thanh
           </h1>
