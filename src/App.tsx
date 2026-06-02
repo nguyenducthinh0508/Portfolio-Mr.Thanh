@@ -176,7 +176,7 @@ export default function App() {
               {/* CTA Button with Text Roll Animation */}
               <button 
                 onClick={() => setIsEnglish(!isEnglish)}
-                className="group bg-gray-900 hover:bg-gray-800 text-white text-[13px] font-medium rounded-full pl-5 pr-2 py-2 flex items-center gap-3 transition-colors duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
+                className="group bg-gray-900 hover:bg-gray-800 active:scale-95 text-white text-[13px] font-medium rounded-full pl-5 pr-2 py-2 flex items-center gap-3 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
               >
                 <div className="overflow-hidden h-[20px] flex flex-col relative">
                   <span className="transform translate-y-0 group-hover:-translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
@@ -195,7 +195,7 @@ export default function App() {
             {/* MOBILE TOGGLE BUTTON */}
             <button 
               onClick={() => setIsMenuOpen(true)}
-              className="md:hidden flex items-center justify-center bg-gray-900 text-white rounded-full p-2.5 mr-1"
+              className="md:hidden flex items-center justify-center bg-gray-900 active:scale-90 text-white rounded-full p-2.5 mr-1 transition-transform duration-100"
             >
               <Menu size={16} />
             </button>
@@ -250,17 +250,17 @@ export default function App() {
 
         {/* Hero Content Area */}
         <div className="w-full max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 relative z-20 flex flex-col justify-center items-center text-center flex-1 pb-8 sm:pb-12">
-          <h1 className="text-gray-900 font-extrabold tracking-[-0.03em] leading-[1.05] text-[clamp(2.5rem,8vw,5.5rem)] select-text mb-4 sm:mb-6">
+          <h1 className="text-gray-900 active:text-[#F26522] active:scale-[0.98] transition-all duration-300 font-extrabold tracking-[-0.03em] leading-[1.05] text-[clamp(2.5rem,8vw,5.5rem)] select-none mb-4 sm:mb-6 cursor-pointer">
             Mr. Nguyen Duc Thanh
           </h1>
-          <p className="text-gray-700 text-[clamp(1.1rem,3vw,1.6rem)] font-medium leading-[1.4] max-w-[850px] select-text">
+          <p className="text-gray-700 active:text-gray-950 transition-colors duration-300 text-[clamp(1.1rem,3vw,1.6rem)] font-medium leading-[1.4] max-w-[850px] select-none">
             {isEnglish ? "Turning Traffic into Revenue. Optimizing conversions for Affiliate ecosystems across E-commerce & Mobile Apps." : "Biến Traffic thành Doanh thu. Tối ưu hóa chuyển đổi hệ sinh thái Affiliate mảng E-commerce & Mobile App."}
           </p>
 
           {/* CTA Row */}
           <div className="mt-8 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5">
             {/* Orange Button */}
-            <a href="#connect" className="group bg-[#F26522] hover:bg-[#e05a1a] text-white text-[13px] sm:text-[14px] font-medium rounded-full pl-5 sm:pl-6 pr-2 py-2 flex items-center gap-4 shadow-md transition-colors duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
+            <a href="#connect" className="group bg-[#F26522] hover:bg-[#e05a1a] active:bg-[#c84f15] active:scale-95 text-white text-[13px] sm:text-[14px] font-medium rounded-full pl-5 sm:pl-6 pr-2 py-2 flex items-center gap-4 shadow-md transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
               <div className="overflow-hidden h-[20px] flex flex-col relative">
                 <span className="transform translate-y-0 group-hover:-translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
                   {isEnglish ? "Start a project" : "Bắt đầu dự án"}
