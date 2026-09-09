@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Clock, Menu, X, ArrowUpRight, CheckCircle2, Calendar } from 'lucide-react';
 import { Shader, Swirl, ChromaFlow, FlutedGlass, FilmGrain } from 'shaders/react';
 import avatarSpeaking from './assets/avatar-speaking.jpg';
@@ -97,13 +97,66 @@ export default function App() {
   // Language State (Vietnamese / English)
   const [isEnglish, setIsEnglish] = useState(false);
 
+  // Touch & Hover Interactive State (simulates desktop hover cursor on mobile touch)
+  const heroRef = useRef<HTMLElement | null>(null);
+  const [touchPos, setTouchPos] = useState({
+    x: 0,
+    y: 0,
+    active: false,
+    tiltX: 0,
+    tiltY: 0
+  });
+
+  const handleHeroInteraction = (clientX: number, clientY: number, active: boolean) => {
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    const relX = clientX - rect.left;
+    const relY = clientY - rect.top;
+
+    // Subtle 3D tilt calculation (-6deg to +6deg)
+    const normX = Math.max(-1, Math.min(1, ((relX / rect.width) - 0.5) * 2));
+    const normY = Math.max(-1, Math.min(1, ((relY / rect.height) - 0.5) * 2));
+    const tiltY = normX * 6;
+    const tiltX = -normY * 6;
+
+    setTouchPos({
+      x: relX,
+      y: relY,
+      active,
+      tiltX,
+      tiltY
+    });
+  };
+
 
 
   return (
     <div className="relative w-full min-h-screen bg-[#EFEFEF] selection:bg-[#F26522] selection:text-white antialiased">
       
       {/* SECTION 1: HERO */}
-      <section className="relative w-full h-[60vh] min-h-[460px] bg-[#EFEFEF] flex flex-col justify-between overflow-hidden">
+      <section 
+        ref={heroRef}
+        onTouchStart={(e) => {
+          if (e.touches.length > 0) {
+            handleHeroInteraction(e.touches[0].clientX, e.touches[0].clientY, true);
+          }
+        }}
+        onTouchMove={(e) => {
+          if (e.touches.length > 0) {
+            handleHeroInteraction(e.touches[0].clientX, e.touches[0].clientY, true);
+          }
+        }}
+        onTouchEnd={() => {
+          setTouchPos(prev => ({ ...prev, active: false, tiltX: 0, tiltY: 0 }));
+        }}
+        onPointerMove={(e) => {
+          handleHeroInteraction(e.clientX, e.clientY, true);
+        }}
+        onPointerLeave={() => {
+          setTouchPos(prev => ({ ...prev, active: false, tiltX: 0, tiltY: 0 }));
+        }}
+        className="relative w-full h-[60vh] min-h-[460px] bg-[#EFEFEF] flex flex-col justify-between overflow-hidden touch-pan-y select-none"
+      >
         
         {/* Animated Shader Overlay with WebGPU Support Check */}
         {hasWebGPU ? (
@@ -248,8 +301,44 @@ export default function App() {
           </div>
         )}
 
-        {/* Hero Content Area */}
-        <div className="w-full max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 relative z-20 flex flex-col justify-center items-center text-center flex-1 pb-8 sm:pb-12">
+        {/* Mobile & Desktop Interactive Touch / Cursor Spotlight (Simulates desktop hover feel on mobile) */}
+        <div 
+          className={`absolute pointer-events-none rounded-full blur-2xl sm:blur-3xl z-10 transition-opacity duration-300 ${
+            touchPos.active ? 'opacity-85 scale-105' : 'opacity-40 scale-95'
+          }`}
+          style={{
+            width: '280px',
+            height: '280px',
+            background: 'radial-gradient(circle, rgba(242,101,34,0.28) 0%, rgba(6,182,212,0.18) 45%, transparent 70%)',
+            left: touchPos.active ? `${touchPos.x - 140}px` : '50%',
+            top: touchPos.active ? `${touchPos.y - 140}px` : '48%',
+            transform: touchPos.active ? 'none' : 'translate(-50%, -50%)',
+            transition: touchPos.active 
+              ? 'left 60ms cubic-bezier(0.1, 0.9, 0.2, 1), top 60ms cubic-bezier(0.1, 0.9, 0.2, 1), opacity 200ms ease, transform 150ms ease' 
+              : 'all 0.8s ease-out'
+          }}
+        />
+
+        {/* Ambient Floating Particle Ring on active touch */}
+        {touchPos.active && (
+          <div 
+            className="absolute pointer-events-none rounded-full border border-orange-500/50 w-10 h-10 -translate-x-1/2 -translate-y-1/2 z-10 animate-ping opacity-60 duration-500"
+            style={{
+              left: `${touchPos.x}px`,
+              top: `${touchPos.y}px`
+            }}
+          />
+        )}
+
+        {/* Hero Content Area with 3D Tilt Reaction */}
+        <div 
+          className="w-full max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 relative z-20 flex flex-col justify-center items-center text-center flex-1 pb-8 sm:pb-12 transition-transform duration-200 ease-out will-change-transform"
+          style={{
+            transform: touchPos.active
+              ? `perspective(900px) rotateX(${touchPos.tiltX}deg) rotateY(${touchPos.tiltY}deg) scale3d(1.015, 1.015, 1.015)`
+              : 'perspective(900px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)'
+          }}
+        >
           <h1 className="text-gray-900 active:text-[#F26522] active:scale-[0.98] transition-all duration-300 font-extrabold tracking-[-0.03em] leading-[1.05] text-[clamp(2.5rem,8vw,5.5rem)] select-none mb-4 sm:mb-6 cursor-pointer">
             Mr. Nguyen Duc Thanh
           </h1>
@@ -260,7 +349,12 @@ export default function App() {
           {/* CTA Row */}
           <div className="mt-8 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5">
             {/* Orange Button */}
-            <a href="#connect" className="group bg-[#F26522] hover:bg-[#e05a1a] active:bg-[#c84f15] active:scale-95 text-white text-[13px] sm:text-[14px] font-medium rounded-full pl-5 sm:pl-6 pr-2 py-2 flex items-center gap-4 shadow-md transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
+            <a 
+              href="#connect" 
+              className={`group bg-[#F26522] hover:bg-[#e05a1a] active:bg-[#c84f15] active:scale-95 text-white text-[13px] sm:text-[14px] font-medium rounded-full pl-5 sm:pl-6 pr-2 py-2 flex items-center gap-4 shadow-md transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${
+                touchPos.active ? 'shadow-[0_10px_25px_rgba(242,101,34,0.35)]' : ''
+              }`}
+            >
               <div className="overflow-hidden h-[20px] flex flex-col relative">
                 <span className="transform translate-y-0 group-hover:-translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]">
                   {isEnglish ? "Start a project" : "Bắt đầu dự án"}
